@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三好小狗</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <img src="assets/dog/samoyed-logo.png" alt="三好小狗头像" />
+          <div>
+            <strong>三好小狗</strong>
+            <span>自我养成系统</span>
+          </div>
+        </div>
+        <nav class="nav-list" aria-label="主导航">
+          <button class="nav-button is-active" data-view="home">🏠 首页</button>
+          <button class="nav-button" data-view="today">📋 今日计划</button>
+          <button class="nav-button" data-view="tasks">🗂 全部任务</button>
+          <button class="nav-button" data-view="growth">🌱 小狗成长</button>
+          <button class="nav-button" data-view="shop">🛒 商店</button>
+          <button class="nav-button" data-view="inventory">🎒 背包</button>
+          <button class="nav-button" data-view="achievements">🏅 成就</button>
+          <button class="nav-button" data-view="calendar">📅 日历</button>
+          <button class="nav-button" data-view="settings">⚙ 设置</button>
+        </nav>
+      </aside>
+
+      <main class="main-shell">
+        <header class="topbar">
+          <div>
+            <strong id="dateLabel">今天</strong>
+            <span id="encourageText">今天的三好小狗也要认真生活！</span>
+          </div>
+          <div class="top-stats">
+            <span id="todayProgress">0/0</span>
+            <span id="coinLabel">🪙 100</span>
+            <span id="diamondLabel">💎 5</span>
+            <span id="streakLabel">🔥 0 天</span>
+            <span id="saveStatus">已自动保存</span>
+          </div>
+        </header>
+
+        <div class="content-grid">
+          <section class="content-area">
+            <section class="view is-visible" data-panel="home">
+              <div class="section-title">
+                <div>
+                  <p>今日计划</p>
+                  <h1>小狗本狗上线，开始今日打卡！</h1>
+                </div>
+                <div class="action-row">
+                  <button class="primary-button" id="addTaskButton">新增任务</button>
+                  <button class="soft-button" id="templateButton">一键生成默认作息</button>
+                </div>
+              </div>
+              <div id="todaySummary" class="summary-grid"></div>
+              <div id="todayTaskList" class="task-list"></div>
+            </section>
+
+            <section class="view" data-panel="today">
+              <div class="section-title">
+                <div>
+                  <p>今日计划</p>
+                  <h1>安排今天要变好的小目标</h1>
+                </div>
+                <button class="primary-button" data-open-task>新增任务</button>
+              </div>
+              <div id="todayTaskListAlt" class="task-list"></div>
+            </section>
+
+            <section class="view" data-panel="tasks">
+              <div class="section-title">
+                <div>
+                  <p>全部任务</p>
+                  <h1>每一个行动都算数</h1>
+                </div>
+                <button class="primary-button" data-open-task>新增任务</button>
+              </div>
+              <div id="allTaskList" class="task-list"></div>
+            </section>
+
+            <section class="view" data-panel="growth">
+              <div class="section-title">
+                <div>
+                  <p>成长记录</p>
+                  <h1>自律小狗正在升级</h1>
+                </div>
+              </div>
+              <div id="growthPanel" class="detail-card"></div>
+            </section>
+
+            <section class="view" data-panel="shop">
+              <div class="section-title">
+                <div>
+                  <p>商店</p>
+                  <h1>用金币兑换自我奖励</h1>
+                </div>
+              </div>
+              <div id="shopGrid" class="shop-grid"></div>
+            </section>
+
+            <section class="view" data-panel="inventory">
+              <div class="section-title">
+                <div>
+                  <p>背包</p>
+                  <h1>三好小狗的自我照顾道具</h1>
+                </div>
+              </div>
+              <div id="inventoryGrid" class="shop-grid"></div>
+            </section>
+
+            <section class="view" data-panel="achievements">
+              <div class="section-title">
+                <div>
+                  <p>成就</p>
+                  <h1>今天也是值得夸夸的一天</h1>
+                </div>
+              </div>
+              <div id="achievementGrid" class="achievement-grid"></div>
+            </section>
+
+            <section class="view" data-panel="calendar">
+              <div class="section-title">
+                <div>
+                  <p>日历</p>
+                  <h1>查看每天的成长记录</h1>
+                </div>
+                <div class="calendar-switch">
+                  <button class="icon-button" id="prevMonthButton" aria-label="上个月">‹</button>
+                  <strong id="calendarTitle"></strong>
+                  <button class="icon-button" id="nextMonthButton" aria-label="下个月">›</button>
+                </div>
+              </div>
+              <div class="weekday-row">
+                <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+              </div>
+              <div id="calendarGrid" class="calendar-grid"></div>
+              <div id="calendarDetail" class="detail-card calendar-detail"></div>
+            </section>
+
+            <section class="view" data-panel="settings">
+              <div class="section-title">
+                <div>
+                  <p>设置</p>
+                  <h1>管理本地存档</h1>
+                </div>
+              </div>
+              <div class="settings-grid">
+                <button class="soft-button" id="exportButton">导出存档</button>
+                <button class="soft-button" id="importButton">导入存档</button>
+                <button class="danger-button" id="resetGameButton">重置游戏数据</button>
+              </div>
+              <textarea id="saveText" class="save-text" placeholder="导出的存档或要导入的 JSON 会显示在这里"></textarea>
+            </section>
+          </section>
+
+          <aside class="dog-card">
+            <div class="dog-hero">
+              <img src="assets/dog/samoyed-main.png" alt="三好小狗萨摩耶形象" />
+              <span id="dogBubble">自律小狗上线！</span>
+            </div>
+            <div class="dog-meta">
+              <p>名字：<strong id="dogName">三好小狗</strong></p>
+              <p>身份：<strong id="dogIdentity">自律小狗</strong></p>
+              <p>阶段：<strong id="dogStage">幼年期</strong></p>
+              <p>等级：<strong id="dogLevel">Lv.1</strong></p>
+            </div>
+            <div class="exp-wrap">
+              <div class="progress-label"><span>经验</span><strong id="expText">0/100</strong></div>
+              <div class="progress-track"><div id="expBar" class="progress-bar"></div></div>
+            </div>
+            <div id="statBars" class="stat-bars"></div>
+            <div class="quick-actions">
+              <button data-action="eat">吃饭</button>
+              <button data-action="relax">放松</button>
+              <button data-action="wash">洗漱</button>
+              <button data-action="study">学习</button>
+              <button data-action="rest">休息</button>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <dialog id="taskDialog" class="task-dialog">
+      <form method="dialog" id="taskForm">
+        <h2 id="taskDialogTitle">新增任务</h2>
+        <input type="hidden" id="taskIdInput" />
+        <label>任务名称<input id="taskTitleInput" required maxlength="30" /></label>
+        <label>任务类型<select id="taskTypeInput"></select></label>
+        <label>时间<input id="taskTimeInput" type="time" required /></label>
+        <label>奖励金币<input id="taskCoinsInput" type="number" min="0" max="999" required /></label>
+        <label>奖励经验<input id="taskExpInput" type="number" min="0" max="999" required /></label>
+        <div class="dialog-actions">
+          <button class="soft-button" value="cancel" type="button" id="cancelTaskButton">取消</button>
+          <button class="primary-button" value="default">保存</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toastHost" class="toast-host" aria-live="polite"></div>
+    <script src="src/app.js"></script>
+  </body>
+</html>
