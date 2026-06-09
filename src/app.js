@@ -193,6 +193,7 @@ const elements = {
   diamondLabel: $("#diamondLabel"),
   streakLabel: $("#streakLabel"),
   saveStatus: $("#saveStatus"),
+  installAppButton: $("#installAppButton"),
   todaySummary: $("#todaySummary"),
   todayTaskList: $("#todayTaskList"),
   todayTaskListAlt: $("#todayTaskListAlt"),
@@ -229,6 +230,7 @@ let state = normalizeState(loadState());
 let currentView = "home";
 let selectedCalendarDate = getDateKey(new Date());
 let visibleMonth = startOfMonth(new Date());
+let deferredInstallPrompt = null;
 
 function createDefaultState() {
   const today = getDateKey(new Date());
@@ -813,6 +815,44 @@ function toast(message, type = "normal") {
   setTimeout(() => node.remove(), 2600);
 }
 
+function setupPwa() {
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches
+    || window.navigator.standalone === true;
+
+  if (!isStandalone) {
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      elements.installAppButton.hidden = false;
+    });
+  }
+
+  elements.installAppButton.addEventListener("click", async () => {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    elements.installAppButton.hidden = true;
+    if (choice.outcome === "accepted") {
+      toast("三好小狗已开始安装！", "success");
+    }
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredInstallPrompt = null;
+    elements.installAppButton.hidden = true;
+    toast("三好小狗安装完成，可以从桌面打开啦！", "success");
+  });
+
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+    });
+  }
+}
+
 function exportSave() {
   elements.saveText.value = JSON.stringify(state, null, 2);
   toast("存档已导出到文本框。", "success");
@@ -881,5 +921,6 @@ function bindEvents() {
 
 ensureDailyRefresh();
 bindEvents();
+setupPwa();
 render();
 saveGame(false);

@@ -21,6 +21,8 @@
 - 日历系统：查看每天完成数、任务数、金币和详情
 - 设置系统：导出存档、导入存档、重置游戏数据
 - 自动保存：所有核心操作都会写入 localStorage
+- PWA 安装：支持安装到桌面、开始菜单或移动设备主屏幕
+- 离线使用：首次在线打开后，核心页面和素材会缓存到本机
 
 ## 操作说明
 
@@ -32,6 +34,22 @@
 6. 在“成就”领取已达成奖励。
 7. 在“日历”查看每日打卡记录。
 8. 在“设置”导出或导入本地存档。
+
+## 安装为应用
+
+线上地址：
+
+```text
+https://1stormrazor.github.io/sanhao-puppy/
+```
+
+使用支持 PWA 的浏览器打开线上地址后：
+
+1. 点击页面顶部出现的“安装应用”。
+2. 确认安装。
+3. 安装完成后，可以从桌面、开始菜单或应用列表打开“三好小狗”。
+
+也可以使用浏览器地址栏中的安装图标。PWA 安装和离线缓存需要通过 HTTPS 或 localhost 访问，直接双击 `index.html` 时游戏功能仍可运行，但不会注册离线服务。
 
 ## 文件结构
 
@@ -45,6 +63,11 @@ assets/
   dog/
     samoyed-main.png
     samoyed-logo.png
+  icons/
+    icon-192.png
+    icon-512.png
+    icon-maskable-512.png
+    apple-touch-icon.png
   tasks/
     wakeup.svg
     breakfast.svg
@@ -65,6 +88,8 @@ assets/
     feeder.svg
     teddy.svg
     shampoo.svg
+manifest.webmanifest
+sw.js
 ```
 
 ## 数据存储说明

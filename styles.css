@@ -38,6 +38,10 @@ button {
   border: 0;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .app-layout {
   display: grid;
   grid-template-columns: 236px 1fr;
@@ -154,6 +158,19 @@ button {
   color: #8a5c30;
   font-size: 0.86rem;
   font-weight: 800;
+}
+
+.install-button {
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: #63320f;
+  background: linear-gradient(180deg, #ffd98f, var(--primary));
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.install-button:hover {
+  background: linear-gradient(180deg, #ffe4aa, #ffad33);
 }
 
 .content-grid {
