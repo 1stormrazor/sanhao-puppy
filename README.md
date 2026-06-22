@@ -51,12 +51,29 @@ https://1stormrazor.github.io/sanhao-puppy/
 
 也可以使用浏览器地址栏中的安装图标。PWA 安装和离线缓存需要通过 HTTPS 或 localhost 访问，直接双击 `index.html` 时游戏功能仍可运行，但不会注册离线服务。
 
+## Windows 安装包
+
+如果需要一个可以直接发送或备份的 Windows 安装包，可以在项目根目录运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/package-windows.ps1
+```
+
+脚本会生成：
+
+- `dist/SanhaoPuppy-Setup.exe`：Windows 安装程序，会安装到当前用户目录，并创建桌面和开始菜单快捷方式。
+- `dist/SanhaoPuppy-Windows-App.zip`：备用离线应用包，可手动解压使用。
+
+安装版会优先用 Microsoft Edge 或 Chrome 的应用窗口打开本地游戏文件；如果没有这些浏览器，则使用系统默认浏览器打开。
+
 ## 文件结构
 
 ```text
 index.html
 styles.css
 README.md
+scripts/
+  package-windows.ps1
 src/
   app.js
 assets/
